@@ -5,11 +5,11 @@
 
 ---
 
-![Screenshot dell app](./img/Screenshot1.PNG)
-![Screenshot dell app](./img/Screenshot2.PNG)
-![Screenshot dell app](./img/Screenshot3.PNG)
-![Screenshot dell app](./img/Screenshot4.PNG)
-![Screenshot dell app](./img/Screenshot5.PNG)
+![Screenshot dell app](./img/Screenshot1.png)
+![Screenshot dell app](./img/Screenshot2.png)
+![Screenshot dell app](./img/Screenshot3.png)
+![Screenshot dell app](./img/Screenshot4.png)
+![Screenshot dell app](./img/Screenshot5.png)
 
 
 🔨
