@@ -1,0 +1,207 @@
+body{
+
+    font-family: "Montserrat", sans-serif;
+    background: #222222;
+    margin: 0;
+    padding: 40px 0;
+    box-sizing: border-box;
+
+}
+
+h1 {
+
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 40px;   
+    color: white;
+    
+    
+
+}
+
+h1 i {
+
+    margin-right: 10px;
+    color: #FFFD02;
+   
+}
+
+
+
+.form-card{
+
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    margin-bottom: 40px;
+
+}
+
+
+.film-card{
+
+    background: #ffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+
+
+}
+
+.film-card:hover {
+
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.film-title{
+
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+
+}
+
+
+
+.film-details{
+
+    font-size: 1rem;
+    color: #555;
+
+}
+
+
+
+.film-action button {
+
+    margin-left: 10px;
+
+}
+
+
+#add-film {
+
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+
+canvas {
+  background-color: #010101;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+
+
+.info-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+
+
+.info-icon:hover {
+  transform: scale(0.2s);
+  color: #0d6efd;
+   cursor: pointer;
+  transition: 0.2s;
+}
+
+
+
+.custom-modal {
+
+  background-color: #1a1a1a; 
+  color: #ffc107;            
+  border: 2px solid #ffc107; 
+  border-radius: 10px;
+
+}
+
+.custom-modal .modal-header {
+
+  background-color: #343a40;
+  color: #ffc107;
+  border-bottom: 2px solid #ffc107;
+
+}
+
+.custom-modal .modal-footer {
+
+  background-color: #343a40;
+  border-top: 2px solid #ffc107;
+
+}
+
+.custom-modal .btn-secondary {
+
+  background-color: #ffc107;
+  color: #1a1a1a;
+  font-weight: bold;
+
+}
+
+
+
+/* Stile per l'indicatore di scorrimento fisso ed elegante */
+#scroll-indicator.scroll-indicator-elegant {
+    /* Posizionamento fisso in fondo, centrato */
+    position: fixed;
+    bottom: 30px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; 
+    
+    opacity: 0; 
+    transition: opacity 0.4s ease-in-out; /* Per la scomparsa graduale */
+    pointer-events: none; /* Rende la freccia non cliccabile quando è invisibile */
+}
+
+/* Stile del contenitore interno (il "cerchio") */
+.scroll-indicator-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.6); 
+    border-radius: 50%; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+    
+    /* Attiva l'animazione di rimbalzo costante */
+    animation: bounce-elegant 1.5s infinite ease-in-out; 
+}
+
+
+#scroll-indicator.show {
+    opacity: 1; /* Lo rende visibile */
+    pointer-events: auto; /* Rende la freccia cliccabile quando è visibile */
+}
+
+/* Stile dell'icona freccia */
+.scroll-indicator-inner i {
+    font-size: 2rem; 
+    line-height: 1;
+}
+
+/* Definisci l'animazione di "rimbalzo" delicata e costante */
+@keyframes bounce-elegant {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px); /* Spostamento su e giù */
+    }
+}
+

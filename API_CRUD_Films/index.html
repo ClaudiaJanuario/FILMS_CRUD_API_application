@@ -1,0 +1,364 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API_CRUD_Films</title>
+
+    <!--bootstrap icons-->
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div class="container" style="max-width: 900px;">
+        <!--Importo con la classe bi bi-film l icon film da bootstrap. se cambio per bi-person appare persona-->
+        <h1><i class="bi bi-film">Film List</i></h1>
+
+
+        <!--Form-->
+        <div class="form-card">
+            <!--row è la riga-->
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <label for="new-film" class="form-label fw-bold">Titolo</label>
+                    <input id="new-film" type="text" class="form-control" placeholder="Es.Indiana Jones">
+
+                </div>
+
+                 <div class="col-md-6">
+
+                    <label for="new-director" class="form-label fw-bold">Regista</label>
+                    <input id="new-director" type="text" class="form-control" placeholder="Es.Christofer Nolan">
+
+                </div>
+
+                 <div class="col-md-4">
+
+                    <label for="new-rating mt-4" class="form-label fw-bold">Voto</label>
+                    <input id="new-rating" type="number" min="1" max="10" class="form-control" placeholder="Es. (1-10)">
+
+                </div>
+
+                 <div class="col-md-4">
+
+                    <label for="new-date mt-4" class="form-label fw-bold">Data di Uscita</label>
+                    <input id="new-date" type="date" class="form-control">
+
+                </div>
+
+                 <div class="col-md-4">
+
+                    <label for="new-time mt-4" class="form-label fw-bold">Orario</label>
+                    <input id="new-time" type="time" class="form-control">
+
+                </div>
+
+               
+
+                <div class="col-md-12">
+
+                    <label for="new-coment mt-4" class="form-label fw-bold">Scrivi qui un commento del film : </label>
+                    <textarea id="new-comment" rows="5" cols="33" type="text" class="form-control"></textarea>
+
+                </div>
+
+                <!--Bottone Submit del form-->
+                <div class="col-12 text-end mt-3">
+                    <button id="add-film" class="btn btn-warning px-4">
+                        <i class="bi bi-plus-circle"></i>Aggiungi Film</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!--CAMPO DI RECERCA DEL FILM-->
+
+        <div class="input-group mb-3">
+            <span class="input-group-text bg-warning border-warning text-dark fw-semibold">
+
+                <i class="bi bi-search"></i>
+                Cerca</span>
+            <input id="searchFilm" type="text" class="form-control border-warning" placeholder="Cerca per Titolo...">
+        </div>
+
+
+        <!--CAMPO DI RECERCA DEL REGISTA-->
+
+        <div class="input-group">
+            <span class="input-group-text bg-warning border-warning text-dark fw-semibold">
+
+                <i class="bi bi-search"></i>
+                Cerca</span>
+            <input id="searchRegista" type="text" id="bi-search" class="form-control border-warning" placeholder="Cerca per Regista...">
+        </div>
+
+
+
+
+
+            <!--Chart di test, dobiamo installarla con la libreria NPM-->
+        <div>
+            <canvas height="240" class="mt-4 mb-4 w-100" id="myChart"></canvas>
+        </div>
+
+        <!--Aggiunta classe paddind0 e margin0 per adattare l ul al container in larghezza-->
+        <ul class="p-0 m-0" id="film-list"></ul>
+
+    </div>    
+
+
+    <!--SECTION MODAL-->
+    <!--EDIT MODAL-->
+    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-warning rounded-4 shadow-lg">
+                
+                <div class="modal-header border-warning flex-column align-items-center pb-0">
+                    <h5 id="editModalLabel" class="modal-title text-warning text-center">
+                        <i class="bi bi-pencil-square"></i>ModificaFilm
+                    </h5>
+                   
+                </div>    
+                    
+                <div class="modal-body mt-3">
+
+                        <!--FORM-->
+                    <form id="editForm" class="text-start">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Titolo</label>
+                            <input id="editTitle" class="form-control bg-dark text-light border-warning" type="text" required><!--obbligatorio-->
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Regista</label>
+                            <input id="editRegista" class="form-control bg-dark text-light border-warning" type="text" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Voto</label>
+                            <input id="editVoto" class="form-control bg-dark text-light border-warning" min="1" max="10" type="number">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Data</label>
+                            <input id="editDate" class="form-control bg-dark text-light border-warning" type="date">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Orario</label>
+                            <input id="editTime" class="form-control bg-dark text-light border-warning" type="time">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Commento</label>
+                            <textarea id="editComment" class="form-control bg-dark text-light border-warning"></textarea>
+                        </div>
+
+                                <!--Bottone di invio dati(SUBMIT)-->
+                        <div class="modal-footer">
+                            <button class="btn btn-warning w-100 fw-semibold mt-3">💾 Salva Modifiche</button> <!--w-100 se voglio un bottone piu lungo-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL: Modifica Avvenuta -->
+    <div id="modificaSuccessoModal" class="modal fade" tabindex="-1" aria-labelledby="modificaSuccessoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-warning rounded-4 shadow-lg">
+        
+                <div class="modal-header border-warning flex-column align-items-center pb-0">
+                    <h5 id="modificaSuccessoModalLabel" class="modal-title text-warning text-center">
+                    <i class="bi bi-check-circle-fill"></i> Modifica Avvenuta!
+                    </h5>
+                </div>
+
+                <div class="modal-body text-center mt-3">
+                    <p id="modificaSuccessoModalMessage" class="fs-5 fw-semibold text-light mt-2">
+            <!-- Qui inserisci con JS: “I dati sono stati aggiornati correttamente!” -->
+                    </p>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center border-0">
+                    <button type="button" class="btn btn-warning px-4 fw-semibold" data-bs-dismiss="modal">
+                    Chiudi
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!---Scroll Down Indicator-->
+    <div id="scroll-indicator" class="scroll-indicator-elegant">
+        <div class="scroll-indicator-inner">
+            <i class="bi bi-chevron-down text-warning"></i>
+        </div>
+    </div>
+
+
+
+
+    <!-- MODAL: Film Aggiunto -->
+    <div id="filmAggiuntoModal" class="modal fade" tabindex="-1" aria-labelledby="filmAggiuntoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-warning rounded-4 shadow-lg">
+        
+                <div class="modal-header border-warning flex-column align-items-center pb-0">
+                    <h5 id="filmAggiuntoModalLabel" class="modal-title text-warning text-center">
+                    <i class="bi bi-check-circle-fill"></i> Film Aggiunto!
+                    </h5>
+                </div>
+
+                <div class="modal-body text-center mt-3">
+                    <p id="nuovoFilmModalMessage" class="fs-5 fw-semibold text-light mt-2"></p>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center border-0">
+                    <button type="button" class="btn btn-warning px-4 fw-semibold" data-bs-dismiss="modal">
+                    Chiudi
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    
+
+
+
+
+
+
+    <!--DELETE MODAL-->
+
+    <div id="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-danger rounded-4 shadow-lg">
+                
+                <div class="modal-header border-danger flex-column align-items-center pb-0">
+                    <h5 id="deleteModalLabel" class="modal-title text-danger text-center">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Conferma Eliminazione
+                    </h5>
+                </div>
+
+                <div class="modal-body text-center mt-3">
+                    <p>Vuoi davvero eliminare <strong id="deleteFilmTitle" class="text-warning"></strong>?</p>
+
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center border-0">
+                    <button class="btn btn-outline-light px-4 fw-semibold" data-bs-dismiss="modal">Annulla</button>
+                    <button id="confirmDeleteBtn" class="btn btn-danger px-4 fw-semibold">
+                        <i class="bi bi-trash"></i> Elimina
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <!-- MODAL: Film Eliminato -->
+    <div id="filmEliminatoModal" class="modal fade" tabindex="-1" aria-labelledby="filmEliminatoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-danger rounded-4 shadow-lg">
+        
+                <div class="modal-header border-danger flex-column align-items-center pb-0">
+                    <h5 id="filmEliminatoModalLabel" class="modal-title text-danger text-center">
+                    <i class="bi bi-trash3-fill"></i> Film Eliminato
+                    </h5>
+                </div>
+
+                <div class="modal-body text-center mt-3">
+                    <p id="filmEliminatoModalMessage" class="fs-5 fw-semibold text-light mt-2"></p>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center border-0">
+                    <button type="button" class="btn btn-outline-danger px-4 fw-semibold" data-bs-dismiss="modal">
+                    Chiudi
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    
+    <!-- Modal per mostrare il commento -->
+    <div id="infoModal" class="modal fade" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-warning rounded-4 shadow-lg">
+                
+                <div class="modal-header border-warning d-flex justify-content-center flex-column">
+                    <h5 id="infoModalLabel" class="modal-title text-warning text-center">
+                        <i class="bi bi-chat-text-fill"></i>Commento del Film
+                    </h5>
+                </div>
+
+                <div class="modal-body text-center">
+                    <p id="infoModalBody" class="fs-5 fw-semibold text-light mt-2"></p>
+            <!-- Il commento viene inserito via JS -->
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center border-0">
+                <button class="btn btn-outline-warning px-4 fw-semibold" data-bs-dismiss="modal">
+                    Chiudi
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Modal per segnalare se il film è già presente nella lista-->
+
+    <div id="duplicateModal" class="modal fade" tabindex="-1" aria-labelledby="duplicateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border border-warning rounded-4 shadow-lg">
+                <div class="modal-header border-warning d-flex justify-content-center flex-column">
+                    <h5 id="duplicateModalLabel" class="modal-title text-warning text-center">⚠️ Film già presente nella Lista!</h5>
+                     
+                </div>
+            
+                <div class="modal-body">
+                    <p id="duplicateModalMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--CDN temporanea di test, successivamente libreria locale con npm-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+    <script src="main.js"></script>
+</body>
+</html>
